@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+import automatum
 
 pygame.init()
 
@@ -13,6 +14,8 @@ pygame.display.set_caption("I5915")
 pygame.display.set_icon(pygame.image.load('assests/planta.png'))
 
 clock = pygame.time.Clock()
+
+
 
 buttons = []
 i = 0
