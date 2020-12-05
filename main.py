@@ -14,9 +14,19 @@ pygame.display.set_icon(pygame.image.load('assests/planta.png'))
 
 clock = pygame.time.Clock()
 
-hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 600), (100, 50)),
-                                            text='Regar',
-                                            manager=manager)
+buttons = []
+i = 0
+while i < 4:
+    buttons.append(pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300 + (200 * i), 550), (100, 50)),
+                                                text=" ",
+                                            manager=manager))
+    i = i+1
+
+buttons[0].set_text(text="Regar")
+buttons[1].set_text(text="Asolear")
+buttons[2].set_text(text="Nutrir")
+buttons[3].set_text(text="Fumigar")
+
 
 htmlText = "<b>Fernanda Noemi Aguayo Carmona<br>Jesus Emmanuel Garza Flores<br>Andres Manuel Molina Aceves</b>";
 pygame_gui.elements.UITextBox(html_text=htmlText, relative_rect=pygame.Rect((970, 640), (300, 300)), manager=manager)
@@ -35,9 +45,14 @@ while running:
 
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == hello_button:
-                    print('Hello World!')
-
+                if event.ui_element == buttons[0]:
+                    print('Me estoy regando')
+                if event.ui_element == buttons[1]:
+                    print('Me estoy asoleando')
+                if event.ui_element == buttons[2]:
+                    print('Me estoy nutriendo')
+                if event.ui_element == buttons[3]:
+                    print('Me estoy desemplagando')
         manager.process_events(event)
 
     manager.update(time_delta)
