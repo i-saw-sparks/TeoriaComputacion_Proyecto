@@ -1,35 +1,47 @@
 import pygame
-from pygame_widgets import ButtonArray, TextBox
+import pygame_gui
 
 pygame.init()
 
 screen = pygame.display.set_mode((1260, 720))
-screen.fill((255, 255, 255))
-pygame.display.update() 
+manager = pygame_gui.UIManager((1260, 720))
+
+background = pygame.Surface((1260, 720))
+background.fill(pygame.Color('#FFFFFF'))
 
 pygame.display.set_caption("I5915")
 pygame.display.set_icon(pygame.image.load('assests/planta.png'))
 
-buttonArray = ButtonArray(screen, 400, 600, 500, 100, (4, 1),
-                          border=20, texts=('Regar', 'Asolear', 'Nutrir', 'Quitar plaga'),
-                            colour=(200, 200, 0)
-                         )
+clock = pygame.time.Clock()
 
-textbox = TextBox(screen, 100, 100, 800, 80, fontSize=50,
-                  borderColour=(255, 0, 0), textColour=(0, 200, 0),
-                  radius=10, borderThickness=5)
+hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 600), (100, 50)),
+                                            text='Regar',
+                                            manager=manager)
+
+htmlText = "<b>Fernanda Noemi Aguayo Carmona<br>Jesus Emmanuel Garza Flores<br>Andres Manuel Molina Aceves</b>";
+pygame_gui.elements.UITextBox(html_text=htmlText, relative_rect=pygame.Rect((970, 640), (300, 300)), manager=manager)
 
 running = True
 
 while running:
+    time_delta = clock.tick(60) / 1000.0
     events = pygame.event.get()
+
     for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
             running = False
             quit()
-    
-    buttonArray.listen(events)
-    buttonArray.draw()
-    pygame.display.update()
 
+        if event.type == pygame.USEREVENT:
+            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == hello_button:
+                    print('Hello World!')
+
+        manager.process_events(event)
+
+    manager.update(time_delta)
+
+    screen.blit(background, (0, 0))
+    manager.draw_ui(screen)
+    pygame.display.update()
