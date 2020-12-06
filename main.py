@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 import automatum
-from automatum import get_image
+from automatum import Automatum
 
 pygame.init()
 
@@ -15,7 +15,7 @@ pygame.display.set_caption("I5915")
 pygame.display.set_icon(pygame.image.load('assests/planta.png'))
 
 clock = pygame.time.Clock()
-
+state_m = Automatum()
 
 
 buttons = []
@@ -50,7 +50,7 @@ while running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == buttons[0]:
-                    print(get_image())
+                    print(state_m.get_next_state_image(3))
                 if event.ui_element == buttons[1]:
                     print('Me estoy asoleando')
                 if event.ui_element == buttons[2]:
