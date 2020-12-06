@@ -1,6 +1,5 @@
 import pygame
 import pygame_gui
-import automatum
 from automatum import Automatum
 
 pygame.init()
@@ -9,18 +8,18 @@ screen = pygame.display.set_mode((1260, 720))
 manager = pygame_gui.UIManager((1260, 720))
 
 background = pygame.Surface((1260, 720))
-background.fill(pygame.Color('#f7f7f7'))
+background.fill(pygame.Color('#F6F6F6'))
 
 pygame.display.set_caption("I5915")
 pygame.display.set_icon(pygame.image.load('assets/planta.png'))
 
-clock = pygame.time.Clock()
 state_m = Automatum()
 image_route = state_m.get_image()
 image_route_new = image_route
 image = pygame.image.load(image_route)
 background.blit(image, (370, 0))
-pygame.display.update()
+
+clock = pygame.time.Clock()
 
 buttons = []
 i = 0
@@ -54,6 +53,37 @@ while running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == buttons[0]:
+                    print('Me estoy regando')
+                if event.ui_element == buttons[1]:
+                    print('Me estoy asoleando')
+                if event.ui_element == buttons[2]:
+                    print('Me estoy nutriendo')
+                if event.ui_element == buttons[3]:
+                    print('Me estoy desemplagando')
+        manager.process_events(event)
+
+    manager.update(time_delta)
+
+    screen.blit(background, (0, 0))
+    manager.draw_ui(screen)
+    pygame.display.update()
+"""
+
+
+while running:
+    time_delta = clock.tick(60) / 1000.0
+
+    events = pygame.event.get()
+
+    for event in events:
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            running = False
+            quit()
+
+        if event.type == pygame.USEREVENT:
+            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == buttons[0]:
                     image_route_new = state_m.get_next_state_image(0)
                 if event.ui_element == buttons[1]:
                     image_route_new = state_m.get_next_state_image(1)
@@ -74,3 +104,4 @@ while running:
 
     manager.draw_ui(screen)
     pygame.display.update()
+    """
