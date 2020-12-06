@@ -13,11 +13,25 @@ Entradas:
 2-Fertilizar
 3-Pesticida
 """
-n_states = 14;
-n_inputs = 4;
-transiciones = [[0 for x in range(n_states)] for y in range(n_inputs)]
 
-current_state = 0;
+# transiciones[estado_actual][input] = siguiente estado
+transiciones = [[1, 4, 7, 10],  # state 0
+                [2, 0, 1, 10],  # state 1
+                [3, 1, 2, 2],  # state 2
+                [13, 2, 3, 3],  # state 3
+                [0, 5, 7, 4],  # state 4
+                [4, 6, 5, 5],  # state 5
+                [5, 13, 6, 6],  # state 6
+                [7, 0, 8, 10],  # state 7
+                [8, 7, 9, 8],  # state 8
+                [9, 8, 13, 9],  # state 9
+                [0, 10, 10, 11],  # state 10
+                [10, 11, 11, 12],  # state 11
+                [11, 12, 12, 13],  # state 12
+                [13, 13, 13, 13]]  # state 13
 
-def suma():
-    return 1+2
+current_state = transiciones[2][2];
+
+
+def get_image():
+    return "state" + str(current_state) + ".jpeg";

@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 import automatum
+from automatum import get_image
 
 pygame.init()
 
@@ -49,7 +50,7 @@ while running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == buttons[0]:
-                    print('Me estoy regando')
+                    print(get_image())
                 if event.ui_element == buttons[1]:
                     print('Me estoy asoleando')
                 if event.ui_element == buttons[2]:
