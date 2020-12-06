@@ -9,14 +9,18 @@ screen = pygame.display.set_mode((1260, 720))
 manager = pygame_gui.UIManager((1260, 720))
 
 background = pygame.Surface((1260, 720))
-background.fill(pygame.Color('#FFFFFF'))
+background.fill(pygame.Color('#f7f7f7'))
 
 pygame.display.set_caption("I5915")
-pygame.display.set_icon(pygame.image.load('assests/planta.png'))
+pygame.display.set_icon(pygame.image.load('assets/planta.png'))
 
 clock = pygame.time.Clock()
 state_m = Automatum()
-
+image_route = state_m.get_image()
+image_route_new = image_route
+image = pygame.image.load(image_route)
+background.blit(image, (370, 0))
+pygame.display.update()
 
 buttons = []
 i = 0
@@ -50,17 +54,23 @@ while running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == buttons[0]:
-                    print(state_m.get_next_state_image(3))
+                    image_route_new = state_m.get_next_state_image(0)
                 if event.ui_element == buttons[1]:
-                    print('Me estoy asoleando')
+                    image_route_new = state_m.get_next_state_image(1)
                 if event.ui_element == buttons[2]:
-                    print('Me estoy nutriendo')
+                    image_route_new = state_m.get_next_state_image(2)
                 if event.ui_element == buttons[3]:
-                    print('Me estoy desemplagando')
+                    image_route_new = state_m.get_next_state_image(3)
+
         manager.process_events(event)
 
     manager.update(time_delta)
+    background.blit(background, (0, 0))
 
-    screen.blit(background, (0, 0))
+    if image_route != image_route_new:
+        image_route = image_route_new
+        image = pygame.image.load(image_route)
+        background.blit(image, (370, 0))
+
     manager.draw_ui(screen)
     pygame.display.update()

@@ -36,7 +36,7 @@ class Automatum:
     current_state = 0
 
     def get_image(self):
-        return "state" + str(self.current_state) + ".jpeg"
+        return "assets/state" + str(self.current_state) + ".jpeg"
 
     def get_next_state(self, input):
         self.current_state = self.transition_tab[self.current_state][input]
@@ -44,4 +44,4 @@ class Automatum:
 
     def get_next_state_image(self, input):
         self.current_state = self.transition_tab[self.current_state][input]
-        return "state" + str(self.current_state) + ".jpeg"
+        return "assets/state" + str(self.current_state) + ".jpeg"
